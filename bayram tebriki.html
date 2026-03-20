@@ -1,1 +1,184 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="UTF-8">
+<title>Novruz Təbriki</title>
 
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    height: 100vh;
+    overflow: hidden;
+    background: url("https://images.unsplash.com/photo-1518199266791-5375a83190b7") no-repeat center/cover;
+}
+
+/* yumşaq overlay */
+body::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(5px);
+}
+
+/* page */
+.page {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* kart */
+.card {
+    backdrop-filter: blur(15px);
+    background: rgba(255, 192, 203, 0.15);
+    border-radius: 30px;
+    padding: 50px;
+    text-align: center;
+    color: white;
+    box-shadow: 0 0 40px rgba(255,105,180,0.6);
+    animation: fadeIn 1.2s ease;
+}
+
+@keyframes fadeIn {
+    from {opacity:0; transform: scale(0.8);}
+    to {opacity:1; transform: scale(1);}
+}
+
+.hidden {
+    display: none;
+}
+
+/* title */
+h1 {
+    font-size: 45px;
+    margin-bottom: 20px;
+    color: #ffd1dc;
+    text-shadow: 0 0 15px #ff69b4;
+}
+
+/* button */
+button {
+    padding: 15px 35px;
+    border: none;
+    border-radius: 30px;
+    background: linear-gradient(45deg, pink, red);
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: scale(1.1);
+}
+
+/* Gilane */
+.name {
+    font-size: 70px;
+    font-weight: bold;
+    background: linear-gradient(45deg, #ff4d6d, #ff99ac, #ffccd5);
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: glow 1.5s infinite alternate;
+}
+
+@keyframes glow {
+    from { text-shadow: 0 0 10px pink; }
+    to { text-shadow: 0 0 30px red; }
+}
+
+/* mesaj */
+.message {
+    font-size: 24px;
+    margin-top: 20px;
+    color: #fff;
+    text-shadow: 0 0 10px black;
+}
+
+/* ürəklər */
+.heart {
+    position: absolute;
+    color: #ff4d6d;
+    animation: float 6s linear infinite;
+}
+
+@keyframes float {
+    from { transform: translateY(100vh); opacity:1; }
+    to { transform: translateY(-10vh); opacity:0; }
+}
+
+/* music btn */
+.music-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<audio id="music" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/02/23/audio_d1718c3c8e.mp3?filename=love-ambient-111997.mp3">
+</audio>
+
+<button class="music-btn" onclick="playMusic()">🎵</button>
+
+<!-- 1-ci səhifə -->
+<div id="page1" class="page">
+    <div class="card">
+        <h1>🌸 Novruzun Mübarək 💕</h1>
+        <button onclick="nextPage()">Təbriki Aç ❤️</button>
+    </div>
+</div>
+
+<!-- 2-ci səhifə -->
+<div id="page2" class="page hidden">
+    <div class="card">
+        <div class="name">Gilane ❤️</div>
+
+        <div class="message">
+            Mənim ən sevimli dayım qızı 💖<br><br>
+            Səni Novruz bayramı münasibətilə təbrik edirəm!<br><br>
+            Sən mənim ürəyimsən ❤️
+        </div>
+    </div>
+</div>
+
+<script>
+function nextPage() {
+    document.getElementById("page1").classList.add("hidden");
+    document.getElementById("page2").classList.remove("hidden");
+}
+
+/* musiqi */
+function playMusic(){
+    document.getElementById("music").play();
+}
+
+/* ürəklər */
+setInterval(() => {
+    let heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random()*100 + "vw";
+    heart.style.fontSize = (15 + Math.random()*25)+"px";
+    document.body.appendChild(heart);
+
+    setTimeout(()=>heart.remove(),6000);
+},300);
+</script>
+
+</body>
+</html>
